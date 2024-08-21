@@ -9,9 +9,9 @@ public class moving_charactor : MonoBehaviour
     private Animator animator;
 
     private float characterScale;
-    private float moveSpeed = 0.3f;
-    private float maxSpeed = 10;
-    private float jumpPower = 30;
+    private float moveSpeed = 0.5f;
+    private float maxSpeed = 8;
+    private float jumpPower = 25;
     private bool isJumping;
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class moving_charactor : MonoBehaviour
             rig.velocity = new Vector2(Mathf.Max(rig.velocity.x, -maxSpeed), rig.velocity.y); //일정 속도에 도달하면 더 이상 빨라지지 않게함.
             transform.localScale = new Vector3(-characterScale, characterScale, 1);
 
-            animator.SetBool("moving", true);
+            //animator.SetBool("moving", true);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -46,13 +46,13 @@ public class moving_charactor : MonoBehaviour
             rig.velocity = new Vector2(Mathf.Min(rig.velocity.x, maxSpeed), rig.velocity.y); //일정 속도에 도달하면 더 이상 빨라지지 않게함.
             transform.localScale = new Vector3(characterScale, characterScale, 1);
 
-            animator.SetBool("moving", true);
+            //animator.SetBool("moving", true);
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) // 이동 키를 뗀 경우
         {
             // x 속도를 줄여 이동 방향으로 아주 살짝만 움직이고 거의 바로 멈추게 합니다.
             rig.velocity = new Vector3(rig.velocity.normalized.x, rig.velocity.y);
-            animator.SetBool("moving", false);
+            //animator.SetBool("moving", false);
         }
 
         // 위 화살표를 누르면 점프합니다.
