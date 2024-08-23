@@ -11,7 +11,7 @@ public class moving_charactor : MonoBehaviour
     private float characterScale;
     private float moveSpeed = 0.5f; //기본이속
     private float maxSpeed = 8; // 최대이속
-    private float jumpPower = 25; // 점속
+    private float jumpPower = 35; // 점속
     private bool isJumping, jump;
 
     // Start is called before the first frame update
@@ -25,13 +25,28 @@ public class moving_charactor : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision) //충돌 감지
     {
-        //Debug.Log("collision : " + collision.gameObject.tag);
         if (collision.gameObject.tag == "Ground")
         { //tag가 Floor인 오브젝트와 충돌했을 때
             isJumping = false; //isJumping을 다시 false로
         }
 
     }
+/*    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("NPC"))
+        {
+            Console.WriteLine("TriggerEnter" + other.gameObject.name);
+            other.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("NPC"))
+        {
+            Console.WriteLine("TriggerEnter" + other.gameObject.name);
+            other.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }*/
     // Update is called once per frame
     void Update()
     {
@@ -39,6 +54,7 @@ public class moving_charactor : MonoBehaviour
         {
             rig.AddForce(Vector2.left * moveSpeed, ForceMode2D.Impulse);  // 물체에 왼쪽 방향으로 물리적 힘을 가해줌
             rig.velocity = new Vector2(Mathf.Max(rig.velocity.x, -maxSpeed), rig.velocity.y); //일정 속도에 도달하면 더 이상 빨라지지 않게함.
+            //rig.velocity = new Vector2(-moveSpeed, rig.velocity.y);
             transform.localScale = new Vector3(-characterScale, characterScale, 1);
 
             //animator.SetBool("moving", true);
@@ -47,20 +63,21 @@ public class moving_charactor : MonoBehaviour
         {
             rig.AddForce(Vector2.right * moveSpeed, ForceMode2D.Impulse);// 물체에 오른쪽 방향으로 물리적 힘을 가해줌.
             rig.velocity = new Vector2(Mathf.Min(rig.velocity.x, maxSpeed), rig.velocity.y); //일정 속도에 도달하면 더 이상 빨라지지 않게함.
+            //rig.velocity = new Vector2(moveSpeed, rig.velocity.y);
             transform.localScale = new Vector3(characterScale, characterScale, 1);
             //animator.SetBool("moving", true);
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) // 이동 키를 뗀 경우
         {
             // x 속도를 줄여 이동 방향으로 아주 살짝만 움직이고 거의 바로 멈추게 합니다.
-            rig.velocity = new Vector3(rig.velocity.normalized.x, rig.velocity.y);
+            rig.velocity = new Vector2(rig.velocity.normalized.x, rig.velocity.y);
             //animator.SetBool("moving", false);
         }
 
         // 위 화살표를 누르면 점프합니다.
         if (Input.GetKey(KeyCode.UpArrow) && !isJumping && jump)
         {
-            rig.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+            rig.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             isJumping = true;
             jump = false;
             //Debug.Log("jump");
