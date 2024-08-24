@@ -9,9 +9,9 @@ public class moving_charactor : MonoBehaviour
     private Animator animator;
 
     private float characterScale;
-    private float moveSpeed = 0.5f; //기본이속
-    private float maxSpeed = 8; // 최대이속
-    private float jumpPower = 35; // 점속
+    private float moveSpeed = 0.4f; //기본이속
+    private float maxSpeed = 3.5f; // 최대이속
+    private float jumpPower = 2.3f; // 점속
     private bool isJumping, jump;
 
     // Start is called before the first frame update
