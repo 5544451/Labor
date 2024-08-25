@@ -31,22 +31,6 @@ public class moving_charactor : MonoBehaviour
         }
 
     }
-/*    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("NPC"))
-        {
-            Console.WriteLine("TriggerEnter" + other.gameObject.name);
-            other.transform.GetChild(0).gameObject.SetActive(true);
-        }
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("NPC"))
-        {
-            Console.WriteLine("TriggerEnter" + other.gameObject.name);
-            other.transform.GetChild(0).gameObject.SetActive(true);
-        }
-    }*/
     // Update is called once per frame
     void Update()
     {
