@@ -37,7 +37,7 @@ public class NPC_Interaction : MonoBehaviour
     }
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (Input.GetKey(KeyCode.LeftControl)) 
+        if(collision.gameObject.CompareTag("Player") && Input.GetKey(KeyCode.LeftControl)) 
         { 
             InterActionBtn.SetActive(false) ;
             line.SetActive(true);
