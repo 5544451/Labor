@@ -7,11 +7,6 @@ public class Enemy_moving : MonoBehaviour
 {
     GameObject enemyRecog;
     private float characterScale, distance;
-    /*    private float moveSpeed = 0.3f; //기본이속
-        private float maxSpeed = 7; // 최대이속
-        private float jumpPower = 20; // 점속*/
-
-    //GameObject targetTransform = null;
     private NavMeshAgent agent;
 
     [SerializeField] Transform[] m_WayPoints = null;
@@ -75,43 +70,4 @@ public class Enemy_moving : MonoBehaviour
         }
 
     }
-
-
-
-
-/*    void OnTriggerEnter2D(Collider2D other)
-    {
-        //print(other.gameObject.name);
-        if (other.CompareTag("Player"))
-        {
-
-
-
-
-            //enemyRecog.SetActive(true);
-            targetTransform = other.gameObject;
-
-            agent.SetDestination(targetTransform.transform.position);
-            //Debug.Log("remainingDistance : " +agent.remainingDistance);
-
-            if (agent.remainingDistance > 4.0f)
-            {
-
-            }
-
-
-
-        }
-        //플레이어 방향으로 이동 + 플레이어와의 거리 계산 반복
-    }*/
-
-/*    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            agent.speed = 1f;
-            enemyRecog.SetActive(false);
-            InvokeRepeating("MoveWayPoint", 0f, 5f);
-        }
-    }*/
 }

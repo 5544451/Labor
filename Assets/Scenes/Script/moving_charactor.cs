@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class moving_charactor : MonoBehaviour
 {
+
+    [SerializeField] Transform pos;
+    [SerializeField] Vector2 boxSize;
+
     Rigidbody2D rig;
     private Animator animator;
 
@@ -13,6 +17,10 @@ public class moving_charactor : MonoBehaviour
     private float maxSpeed = 3.5f; // 최대이속
     private float jumpPower = 2.3f; // 점속
     private bool isJumping, jump;
+
+    private float curTime;
+    private float coolTime = 0.5f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +80,30 @@ public class moving_charactor : MonoBehaviour
             jump = true;
         }
 
+        if( curTime <= 0)
+        {
+            if (Input.GetKeyUp(KeyCode.Z))
+            {
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+                foreach( Collider2D collider2D in collider2Ds)
+                {
+                    Debug.Log(collider2D.tag);
+                }
+                curTime = coolTime;
+            }
+
+        }
+        else
+        {
+            curTime -= Time.deltaTime;
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(pos.position, boxSize);
     }
 
 }

@@ -10,7 +10,7 @@ public class NPC_Interaction : MonoBehaviour
 {
     GameObject line, InterActionBtn;
 
-    public TextMeshProUGUI dialog;
+    [SerializeField] TextMeshProUGUI dialog;
     bool dialogType = true;
 
     // Start is called before the first frame update
