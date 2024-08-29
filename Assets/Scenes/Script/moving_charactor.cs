@@ -6,6 +6,8 @@ using UnityEngine;
 public class moving_charactor : MonoBehaviour
 {
 
+    [SerializeField] string oneWayPlatformLayerName = "OneWayPlatform";
+    [SerializeField] string playerLayerName = "Player";
     [SerializeField] Transform pos;
     [SerializeField] Vector2 boxSize;
 
@@ -97,6 +99,21 @@ public class moving_charactor : MonoBehaviour
         {
             curTime -= Time.deltaTime;
         }
+
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayerName),
+                                      LayerMask.NameToLayer(oneWayPlatformLayerName),
+                                      true);
+
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayerName),
+                          LayerMask.NameToLayer(oneWayPlatformLayerName),
+                          false);
+        }
+
 
     }
 

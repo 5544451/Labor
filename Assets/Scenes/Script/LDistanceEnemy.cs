@@ -54,7 +54,7 @@ public class LDistanceEnemy : MonoBehaviour
                 //rayLine.SetPosition(0, rayStart); // Ω√¿€¡°
                 rayLine.positionCount = 2;
                 LDistanceTarget.isFollowing = true;
-                AtkTarget.transform.Translate(targetTransform.position);
+                AtkTarget.transform.position = targetTransform.position;
             }
 
             Atk = LDistanceTarget.isFollowing;
@@ -71,10 +71,6 @@ public class LDistanceEnemy : MonoBehaviour
                 {
                     LongAtk(rayStart, AtkTarget.transform.position);
                     Invoke("ResumeFollowing", 1.0f);
-                }
-                else
-                {
-                    pauseDuration = true;
                 }
             }
 
@@ -93,6 +89,7 @@ public class LDistanceEnemy : MonoBehaviour
     }
     void LongAtk(Vector2 rayStart, Vector2 rayEnd)
     {
+        pauseDuration = true;
         rayLine.positionCount = 0;
         rayLine.startColor = Color.red;
         rayLine.endColor = Color.red;
@@ -114,6 +111,8 @@ public class LDistanceEnemy : MonoBehaviour
         rayLine.endColor = Color.blue;
 
         rayLine.positionCount = 2;
+
+        pauseDuration = false;
     }
 
 }
