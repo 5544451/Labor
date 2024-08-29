@@ -917,8 +917,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   targetTransform: {fileID: 1671714907}
-  chaseObject: {fileID: 682945376}
-  followSpeed: 2
+  AtkTarget: {fileID: 682945376}
 --- !u!70 &422788846
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2056,8 +2055,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 682945377}
+  - component: {fileID: 682945378}
   m_Layer: 12
-  m_Name: Ray
+  m_Name: AtkTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2078,6 +2078,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 422788843}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &682945378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682945376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87a5d9b1655ebb4d86bc4028e40348c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1671714907}
+  followSpeed: 4
+  followDuration: 2.5
+  pauseDuration: 1
 --- !u!1 &793707357
 GameObject:
   m_ObjectHideFlags: 0
