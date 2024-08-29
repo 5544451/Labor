@@ -5,17 +5,34 @@ using UnityEngine;
 
 using TMPro;
 using UnityEngine.UI;
+using System.IO;
+using LitJson;
+using TMPro.Examples;
+
 
 public class NPC_Interaction : MonoBehaviour
 {
     GameObject line, InterActionBtn;
 
-    [SerializeField] TextMeshProUGUI dialog;
+    //public TextAsset dataGemeList;
+    [SerializeField]TextMeshProUGUI dialog;
     bool dialogType = true;
+    string data;
 
     // Start is called before the first frame update
     void Start()
     {
+        string path = "Assets/Scenes/Script/825test.json";
+        string json = File.ReadAllText(path);
+        JsonData myData = JsonMapper.ToObject(json);
+        Debug.Log(myData);
+        //JsonData Lines = JsonMapper.ToObject(myData[0]["Lines"]);
+        for (int i = 0; i < myData.Count; i++)
+        {
+            string line = myData[i]["line"].ToString();
+            Debug.Log(line);
+        }
+
         line = transform.GetChild(0).gameObject;
         InterActionBtn = transform.GetChild(1).gameObject;
 

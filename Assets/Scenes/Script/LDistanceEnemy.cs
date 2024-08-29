@@ -6,35 +6,30 @@ using UnityEngine;
 
 public class LDistanceEnemy : MonoBehaviour
 {
-    private float distance;
-    private GameObject enemyRecog;
-    [SerializeField]LineRenderer rayLine;
-    [SerializeField]LayerMask layerMask;
-    [SerializeField]Transform targetTransform;
-    [SerializeField]GameObject chaseObject;
-    private Vector2 pausePosition; // 멈춘 위치
+    private float distance; //적과 플레이어 거리 계산
+    private GameObject enemyRecog; //적이 플레이어를 추적할때 활성화되는 오브젝트
+    [SerializeField]LineRenderer rayLine; //적이 플레이어를 추적할때 실시간으로 수정되는 선 긋기
+    [SerializeField]LayerMask layerMask; // 선이 플레이어를 마주닿는지 확인하기 위한 마스크
+    [SerializeField]Transform targetTransform; // 플레이어 실시간 위치 받아오기
+    [SerializeField]GameObject AtkTarget; // 플레이어를 따라가는 표적
 
-    private float curTime = 0.0f;
-    private float timeToChase = 1.5f;
-    private float timeToRay = 1.0f;
     private float lineWidth = 0.06f;
-    public float followSpeed = 2.0f; // 따라가는 속도
-
     private Vector2 rayStart, rayEnd;
+    private bool recog, Atk = false;
 
-    private bool recog, chase = false;
+    bool pauseDuration = false; // 멈추는 시간 (초)
 
-        // Start is called before the first frame update
     void Start()
     {
-        //chaseObject = GetComponent<GameObject>();   
+        //AtkTarget = GameObject.Find("AtkTarget").GetComponent<LDistanceTarget>();   
         rayStart = new Vector2(transform.position.x, transform.position.y);
         //layerMask = LayerMask.GetMask("Player");
         enemyRecog = transform.GetChild(0).gameObject;
         enemyRecog.SetActive(false);
+        AtkTarget.SetActive(false);
 
         // LineRenderer 설정
-        rayLine.positionCount = 0; // 두 점으로 직선을 그리므로
+        rayLine.positionCount = 2; // 두 점으로 직선을 그리므로
         rayLine.startWidth = lineWidth;
         rayLine.endWidth = lineWidth;
 
@@ -54,43 +49,34 @@ public class LDistanceEnemy : MonoBehaviour
             if(!recog)
             {
                 enemyRecog.SetActive(true);
-                rayLine.positionCount = 2;
-                //정찰종료
-                //nvokeRepeating("MoveRayPoint", 0f, 0.5f);
+                AtkTarget.SetActive(true);
                 rayStart = transform.position;
-                //플레이어를 따라가는 빈 오브젝트 움직임이 정상적이지 않아서 고쳐야함
-                //빔쏘는게 안됨
-                chaseObject.transform.Translate(targetTransform.position);
-                rayLine.SetPosition(0, rayStart);
- 
-
-                chase = true;
+                //rayLine.SetPosition(0, rayStart); // 시작점
+                rayLine.positionCount = 2;
+                LDistanceTarget.isFollowing = true;
+                AtkTarget.transform.Translate(targetTransform.position);
             }
 
-            if (chase)
+            Atk = LDistanceTarget.isFollowing;
+            if (Atk)
             {
-                chaseObject.transform.position = Vector3.Lerp(chaseObject.transform.position, targetTransform.position, followSpeed * Time.deltaTime);
+                rayLine.SetPosition(0, rayStart); // 시작점
+                rayLine.SetPosition(1, AtkTarget.transform.position); // 끝점
+                recog = true;
 
-                rayEnd = chaseObject.transform.position;
-                rayLine.SetPosition(1, rayEnd);
-                curTime += Time.deltaTime;
-
-                if (curTime >= timeToChase)
+            }
+            else
+            {
+                if (!pauseDuration)
                 {
-                    pausePosition = chaseObject.transform.position;
-
-                    chase= false;
-                    rayLine.positionCount = 0;
-                    rayLine.startColor = Color.red;
-                    rayLine.endColor = Color.red;
-
-                    rayLine.SetPosition(0, rayStart);
-                    rayLine.SetPosition(1, pausePosition); // 끝점
-                    Invoke("LongAtk", timeToRay);
+                    LongAtk(rayStart, AtkTarget.transform.position);
+                    Invoke("ResumeFollowing", 1.0f);
                 }
-            }  
-
-            recog = true;
+                else
+                {
+                    pauseDuration = true;
+                }
+            }
 
         }
         else
@@ -98,21 +84,36 @@ public class LDistanceEnemy : MonoBehaviour
             if (recog)
             {
                 enemyRecog.SetActive(false);
+                AtkTarget.SetActive(false);
+                rayLine.positionCount = 0;
             }
             recog = false;
         }
 
     }
-    void LongAtk()
+    void LongAtk(Vector2 rayStart, Vector2 rayEnd)
+    {
+        rayLine.positionCount = 0;
+        rayLine.startColor = Color.red;
+        rayLine.endColor = Color.red;
+
+        rayLine.positionCount = 2;
+        rayLine.SetPosition(0, rayStart); // 시작점
+        rayLine.SetPosition(1, rayEnd); // 끝점
+
+        RaycastHit2D hit = Physics2D.Raycast(rayStart, rayEnd, 200, layerMask);
+        Debug.DrawLine(rayStart, rayEnd, Color.red);
+
+        //curTime = 0.0f;
+    }
+
+    void ResumeFollowing()
     {
         rayLine.positionCount = 0;
         rayLine.startColor = Color.blue;
         rayLine.endColor = Color.blue;
 
-        RaycastHit2D hit = Physics2D.Raycast(rayStart, pausePosition, 200, layerMask);
-        Debug.DrawLine(rayStart, pausePosition, Color.red);
-
-        chase = true;
-        curTime = 0.0f;
+        rayLine.positionCount = 2;
     }
+
 }
