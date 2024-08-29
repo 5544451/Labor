@@ -17,7 +17,7 @@ public class moving_charactor : MonoBehaviour
     private float characterScale;
     private float moveSpeed = 0.4f; //기본이속
     private float maxSpeed = 3.5f; // 최대이속
-    private float jumpPower = 2.3f; // 점속
+    [SerializeField] float jumpPower = 2.3f; // 점속
     private bool isJumping, jump;
 
     private float curTime;
