@@ -6,7 +6,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.IO;
-using LitJson;
 using TMPro.Examples;
 
 
@@ -17,30 +16,21 @@ public class NPC_Interaction : MonoBehaviour
     //public TextAsset dataGemeList;
     [SerializeField]TextMeshProUGUI dialog;
     bool dialogType = true;
-    string data;
+    List<string> Dialog = new List<string>();
+
 
     // Start is called before the first frame update
     void Start()
     {
-        string path = "Assets/Scenes/Script/825test.json";
-        string json = File.ReadAllText(path);
-        JsonData myData = JsonMapper.ToObject(json);
-        Debug.Log(myData);
-        //JsonData Lines = JsonMapper.ToObject(myData[0]["Lines"]);
-        for (int i = 0; i < myData.Count; i++)
-        {
-            string line = myData[i]["line"].ToString();
-            Debug.Log(line);
-        }
-
         line = transform.GetChild(0).gameObject;
         InterActionBtn = transform.GetChild(1).gameObject;
 
         line.SetActive(false);
         InterActionBtn.SetActive(false);
 
+
         //엔피씨가 시작할때 필요한 대사를 미리 저장해서 읽어놔야겠지요
-        //readJSON();
+        readJSON();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -78,32 +68,31 @@ public class NPC_Interaction : MonoBehaviour
         dialogType = true;
     }
 
-    void readJSON(string json) // 제이슨 파일을 읽는 함수
+    void readJSON() // 제이슨 파일을 읽는 함수
     {
-        //1.제이슨 파일을 열어서
-        //2. 내부에서 필요한 대사들을 읽고, 배열에 저장한다
-/*        return npc가 뱉을 대사들의 배열집
-
-        대사 = [안녕 내이름은 엔피씨얏, << Index 0
-            나느 지금 서있아, Index 1 i++
-            잘가 ] index 2 i++*/
+        TextAsset textAsset = Resources.Load<TextAsset>("825test");
+        JsonLines jsonData = JsonUtility.FromJson<JsonLines>(textAsset.text);
+        foreach (JsonLine lt in jsonData.Lines)
+        {
+            Dialog.Add(lt.line);
+        }
     }
-
 
     IEnumerator TypeWriter()
     {
         //typeTxt 내용을 다음 읽을 대사로 자동으로 바꾸도록 조정한다. (for문이 2겹이 되겠죠?)
         dialogType = false;
-        string typeTxt = "Intesraction TEST";
-        dialog.text = "";
-        for (int i = 0; i < typeTxt.Length; i++)
+        //string typeTxt = "Intesraction TEST";
+        for (int index = 0; index < Dialog.Count; index++)
         {
-            dialog.text += typeTxt[i].ToString();
-            yield return new WaitForSeconds(0.1f);
-        }
-        //한줄이 다 끝나면 
-        // if (Input.GetKey(KeyCode.LeftControl)) 
-        // 받으면 다음 루프문이 돌아가야함.
+            dialog.text = "";
+            for (int i = 0; i < Dialog[index].Length; i++)
+            {
+                dialog.text += Dialog[index][i].ToString();
+                yield return new WaitForSeconds(0.1f);
+            }
 
+            yield return new WaitUntil(() => Input.GetKey(KeyCode.LeftControl));
+        }
     }
 }
