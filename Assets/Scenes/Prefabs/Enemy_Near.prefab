@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 8952775169972190522}
   - component: {fileID: 1749860805846139378}
   - component: {fileID: 3732790509343390366}
-  - component: {fileID: 3765905655581700438}
-  - component: {fileID: 7336200229530150224}
   - component: {fileID: 5178952533617152527}
+  - component: {fileID: -1504447154619410842}
   m_Layer: 7
   m_Name: Enemy_Near
   m_TagString: Enemy
@@ -152,44 +151,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3
---- !u!114 &3765905655581700438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 543365642126087196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a882534e735e34bae449e406261ebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_WayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  targetTransform: {fileID: 0}
---- !u!195 &7336200229530150224
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 543365642126087196}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.15
-  m_Speed: 1
-  m_Acceleration: 5
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 1
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 0.5
-  m_BaseOffset: 0.35
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
 --- !u!70 &5178952533617152527
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -225,6 +186,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.13542747}
   m_Size: {x: 0.26011217, y: 0.57328606}
   m_Direction: 0
+--- !u!114 &-1504447154619410842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543365642126087196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a882534e735e34bae449e406261ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WayPoints: []
+  targetTransform: {fileID: 0}
 --- !u!1 &645630297216730805
 GameObject:
   m_ObjectHideFlags: 0
