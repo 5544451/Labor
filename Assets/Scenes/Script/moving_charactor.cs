@@ -14,9 +14,11 @@ public class moving_charactor : MonoBehaviour
     Rigidbody2D rig;
     private Animator animator;
 
+    private GameObject AtkObject;
+
     private float characterScale;
-    private float moveSpeed = 0.4f; //기본이속
-    private float maxSpeed = 3.5f; // 최대이속
+    [SerializeField] private float moveSpeed = 0.4f; //기본이속
+    [SerializeField] private float maxSpeed = 3.5f; // 최대이속
     [SerializeField] float jumpPower = 2.3f; // 점속
     private bool isJumping, jump;
 
@@ -82,18 +84,22 @@ public class moving_charactor : MonoBehaviour
             jump = true;
         }
 
-        if( curTime <= 0)
+        if(curTime <= 0) //공격 쿨타임 조절
         {
-            if (Input.GetKeyUp(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-                foreach( Collider2D collider2D in collider2Ds)
+                Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0); //공격범위안에 뭐들어왔나 확인
+                foreach( Collider2D collider2D in collider2Ds) //여러개면 다출력
                 {
-                    Debug.Log(collider2D.tag);
+                    if( collider2D.tag == "Enemy")//범위안에 들어간거 hp있으면 hp빼는 작업
+                    {
+                        AtkObject = collider2D.gameObject;
+                        AtkObject.GetComponent<HPController>().GetDamage(50);
+                    }
+                    Debug.Log(collider2D.tag); 
                 }
                 curTime = coolTime;
             }
-
         }
         else
         {
@@ -105,7 +111,6 @@ public class moving_charactor : MonoBehaviour
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayerName),
                                       LayerMask.NameToLayer(oneWayPlatformLayerName),
                                       true);
-
         }
         else
         {
@@ -113,9 +118,20 @@ public class moving_charactor : MonoBehaviour
                           LayerMask.NameToLayer(oneWayPlatformLayerName),
                           false);
         }
-
-
     }
+
+    private void FixedUpdate()
+    {
+        if (!jump && rig.velocity.y>0)
+        {
+            rig.gravityScale = 2.3f;
+        }
+        else
+        {
+            rig.gravityScale = 4.0f;
+        }
+    }
+
 
     private void OnDrawGizmos()
     {
