@@ -35,8 +35,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5621697248170388416}
   - {fileID: 6220706768631258999}
+  - {fileID: 5621697248170388416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8952775169972190522
@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hpBar: {fileID: 7293981151898476792}
+  knockbackForce: 5
 --- !u!1 &645630297216730805
 GameObject:
   m_ObjectHideFlags: 0

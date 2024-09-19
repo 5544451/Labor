@@ -28,7 +28,7 @@ public class LDistanceEnemy : MonoBehaviour
         enemyRecog.SetActive(false);
         AtkTarget.SetActive(false);
 
-        // LineRenderer 설정
+        //LineRenderer 설정
         rayLine.positionCount = 2; // 두 점으로 직선을 그리므로
         rayLine.startWidth = lineWidth;
         rayLine.endWidth = lineWidth;

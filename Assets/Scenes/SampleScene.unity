@@ -5071,6 +5071,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Near
       objectReference: {fileID: 0}
+    - target: {fileID: 1749860805846139378, guid: 3acd0f23f8f9cc84995ade452e162090, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1874031681242127418, guid: 3acd0f23f8f9cc84995ade452e162090, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

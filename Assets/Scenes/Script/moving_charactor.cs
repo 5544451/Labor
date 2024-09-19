@@ -61,12 +61,14 @@ public class moving_charactor : MonoBehaviour
             rig.velocity = new Vector2(Mathf.Min(rig.velocity.x, maxSpeed), rig.velocity.y); //일정 속도에 도달하면 더 이상 빨라지지 않게함.
             //rig.velocity = new Vector2(moveSpeed, rig.velocity.y);
             transform.localScale = new Vector3(characterScale, characterScale, 1);
+
             //animator.SetBool("moving", true);
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)) // 이동 키를 뗀 경우
         {
             // x 속도를 줄여 이동 방향으로 아주 살짝만 움직이고 거의 바로 멈추게 합니다.
             rig.velocity = new Vector2(rig.velocity.normalized.x, rig.velocity.y);
+
             //animator.SetBool("moving", false);
         }
 
@@ -76,7 +78,6 @@ public class moving_charactor : MonoBehaviour
             rig.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             isJumping = true;
             jump = false;
-            //Debug.Log("jump");
         }
 
         if (Input.GetKeyUp(KeyCode.UpArrow)) //윗키 한번에 점프 한번만
@@ -91,10 +92,10 @@ public class moving_charactor : MonoBehaviour
                 Collider2D[] collider2Ds = Physics2D.OverlapBoxAll(pos.position, boxSize, 0); //공격범위안에 뭐들어왔나 확인
                 foreach( Collider2D collider2D in collider2Ds) //여러개면 다출력
                 {
-                    if( collider2D.tag == "Enemy")//범위안에 들어간거 hp있으면 hp빼는 작업
+                    if(collider2D.tag == "Enemy")//범위안에 들어간거 hp있으면 hp빼는 작업
                     {
                         AtkObject = collider2D.gameObject;
-                        AtkObject.GetComponent<HPController>().GetDamage(50);
+                        AtkObject.GetComponent<HPController>().GetDamage(10, transform.position);
                     }
                     Debug.Log(collider2D.tag); 
                 }
@@ -106,7 +107,7 @@ public class moving_charactor : MonoBehaviour
             curTime -= Time.deltaTime;
         }
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayerName),
                                       LayerMask.NameToLayer(oneWayPlatformLayerName),
@@ -122,6 +123,7 @@ public class moving_charactor : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //윗키 꾹 누르면 점프높게 하도록 중력 변경
         if (!jump && rig.velocity.y>0)
         {
             rig.gravityScale = 2.3f;
