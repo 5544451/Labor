@@ -3517,6 +3517,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854607801}
   m_CullTransparentMesh: 1
+--- !u!114 &1866053800 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1504447154619410842, guid: 3acd0f23f8f9cc84995ade452e162090, type: 3}
+  m_PrefabInstance: {fileID: 2464744262158484522}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a882534e735e34bae449e406261ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1880323846
 GameObject:
   m_ObjectHideFlags: 0
@@ -5071,6 +5082,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Near
       objectReference: {fileID: 0}
+    - target: {fileID: 1687473817923448461, guid: 3acd0f23f8f9cc84995ade452e162090, type: 3}
+      propertyPath: _body
+      value: 
+      objectReference: {fileID: 1866053800}
     - target: {fileID: 1749860805846139378, guid: 3acd0f23f8f9cc84995ade452e162090, type: 3}
       propertyPath: m_Constraints
       value: 4

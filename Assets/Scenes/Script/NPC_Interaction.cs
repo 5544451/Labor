@@ -6,7 +6,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.IO;
-using TMPro.Examples;
 
 
 public class NPC_Interaction : MonoBehaviour
