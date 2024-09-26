@@ -6,8 +6,8 @@ using UnityEngine;
 public class moving_charactor : MonoBehaviour
 {
 
-    [SerializeField] string oneWayPlatformLayerName = "OneWayPlatform";
-    [SerializeField] string playerLayerName = "Player";
+    const string oneWayPlatformLayerName = "OneWayPlatform";
+    const string playerLayerName = "Player";
     [SerializeField] Transform pos;
     [SerializeField] Vector2 boxSize;
 
